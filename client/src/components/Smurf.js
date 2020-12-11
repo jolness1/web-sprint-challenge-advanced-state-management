@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { getSmurf } from './../actions/index'
+
+
+const Smurf = ({ smurf, isLoading, error, getSmurf}) => {
+        getSmurf();
+        }
 
 class Smurf extends React.Component {
     render() {
         const { smurf } = this.props;
+        console.log(smurf.name);
 
         return(<div data-testid="smurf" className="card">
+            {smurf.name}
+            {smurf.age} years old
         </div>);
     }
 }
