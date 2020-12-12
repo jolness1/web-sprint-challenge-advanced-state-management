@@ -24,7 +24,7 @@ class AddForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.state.name && this.state.position && this.state.nickname) {
-            this.props.getSmurf(this.state);
+            this.props.postSmurf(this.state);
             this.setState({
                 name:"",
                 position: "",

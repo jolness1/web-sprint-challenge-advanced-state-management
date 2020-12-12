@@ -24,11 +24,11 @@ export const postSmurf = (smurf) => dispatch => {
     axios
       .post("http://localhost:3333/smurfs", smurf)
       .then((res) => {
-        dispatch ({ type: ADD_SMURF, paylaod: smurf});
+        dispatch ({ type: ADD_SMURF, payload: smurf});
       })
       .catch((err) => dispatch ({
-        type:FETCHING_SMURF_FAILURE, payload: err
-      }));
+          type:FETCHING_SMURF_FAILURE, payload: err
+        }));
     }
 export const setErrorMessage = (error) => {
     return({type: SMURF_BAD_DATA, payload: error})
