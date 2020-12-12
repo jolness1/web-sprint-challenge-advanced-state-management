@@ -9,7 +9,7 @@ import App from "./App";
 import { reducer } from './reducers/index';
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
-console.log(store)
+
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(

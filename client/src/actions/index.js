@@ -1,68 +1,35 @@
 import axios from "axios";
 
+
 export const FETCHING_SMURF_START = "FETCHING_SMURF_START";
 export const FETCHING_SMURF_SUCCESS = "FETCHING_SMURF_SUCCESS";
+export const ADD_SMURF ="ADD_SMURF"
 export const FETCHING_SMURF_FAILURE = "FETCHING_SMURF_FAILURE";
-export const POSTING_SMURF_START = "POSTING_SMURF_START";
-export const POSTING_SMURF_SUCCESS = "POSTING_SMURF_SUCCESS";
-export const POSTING_SMURF_FAILURE = "POSTING_SMURF_FAILURE";
-export const ONCHANGE = "ONCHANGE";
-export const CLEAR_FORM = "CLEAR_FORM";
+export const SMURF_BAD_DATA = "SMURF_BAD_DATA"
 
-export function getSmurf() {
-  return (dispatch) => {
-    dispatch(startFetch());
+export const  getSmurf = () => dispatch => {
+    dispatch({type: FETCHING_SMURF_START});
     axios
     .get("http://localhost:3333/smurfs")
     .then((res) => {
-        dispatch(fetchSuccess(res.data));
-        console.log(res.data);
+        dispatch({type: FETCHING_SMURF_SUCCESS, payload: res.data});
     })
     .catch((err) => {
-        dispatch(fetchFailure(err.message));
+        dispatch({ type: FETCHING_SMURF_FAILURE, payload: err});
     });
-    debugger;
 };
-}
 
-export function postSmurfs(smurf) {
-  return (dispatch) => {
-    dispatch(startPost());
+
+export const postSmurf = (smurf) => dispatch => {
     axios
       .post("http://localhost:3333/smurfs", smurf)
       .then((res) => {
-        console.log("Post Successfull ==> ", res);
+        dispatch ({ type: ADD_SMURF, paylaod: smurf});
       })
-      .catch((err) => {
-        dispatch(postFailure(err.meesage));
-      });
-  };
-}
-
-export function clearForm() {
-  return { type: CLEAR_FORM };
-}
-
-export function onChange(e) {
-  return { type: ONCHANGE, payload: e };
-}
-
-function startFetch() {
-  return { type: FETCHING_SMURF_START };
-}
-
-function fetchSuccess(payload) {
-  return { type: FETCHING_SMURF_SUCCESS, payload: payload };
-}
-
-function fetchFailure(payload) {
-  return { type: FETCHING_SMURF_FAILURE, payload: payload };
-}
-
-function startPost() {
-  return { type: POSTING_SMURF_START };
-}
-
-function postFailure(payload) {
-  return { type: POSTING_SMURF_FAILURE, payload: payload };
+      .catch((err) => dispatch ({
+        type:FETCHING_SMURF_FAILURE, payload: err
+      }));
+    }
+export const setErrorMessage = (error) => {
+    return({type: SMURF_BAD_DATA, payload: error})
 }
